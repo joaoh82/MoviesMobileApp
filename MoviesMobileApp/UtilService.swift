@@ -18,13 +18,12 @@ class UtilService: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let currentDate = NSDate()
-        let url = UtilFacade.host+UtilFacade.discoverEndPoint+"?api_key="+UtilFacade.token+"&language=en-US&sort_by=primary_release_date.asc&include_video=true&page=1&primary_release_date.gte="+dateFormatter.string(from: currentDate as Date)
+        let url = "\(UtilFacade.host+UtilFacade.discoverEndPoint)?api_key=\(UtilFacade.token)&language=en-US&sort_by=primary_release_date.asc&include_video=true&page=\(page)&primary_release_date.gte=\(dateFormatter.string(from: currentDate as Date))"
         
         return Observable.create { observer in
             var request = URLRequest(url: NSURL(string: url) as! URL)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//            request.setValue("en", forHTTPHeaderField: "Accept-Language")
             
             Alamofire.request(request).responseJSON { response in
                 print("Success: \(response.result.isSuccess)")

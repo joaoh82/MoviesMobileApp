@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating  {
 
@@ -42,12 +44,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchController.searchBar.showsCancelButton = false
         searchController.searchBar.setValue("Cancel", forKey:"_cancelButtonText")
         self.moviesTableView.tableHeaderView = searchController.searchBar
+        
+        self.getMovies(page: 1)
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getMovies(page:Int){
+        let service = UtilService()
+        _ = service.getMovies(page: 1)
+            .subscribe(onNext: { n in
+                print("next")
+                    if let dict = n as? [String: AnyObject] {
+                        if let twoDataArray = dict["results"] as? Array<Dictionary<String, Any>>{
+                            for data in twoDataArray{
+                                let movie = Movie(data: data)
+                                self.moviesArray.append(movie)
+                            }
+                        }
+                    }
+                }
+                , onError: {error in
+                    print(error)
+                }
+                , onCompleted: {
+                    print("Completed")
+                    self.moviesTableView.reloadData()
+                }
+                , onDisposed: {
+                    print("Disposed")
+                }
+        )
     }
 
     // MARK: UItableView Delegate Methods
@@ -60,23 +91,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:MoviesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MoviesFoldingCell", for: indexPath as IndexPath) as! MoviesTableViewCell
+        let cell:MoviesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MoviesCell", for: indexPath as IndexPath) as! MoviesTableViewCell
         
-        let movie:Movie
-        
+        var movie:Movie
         if searchController.isActive && searchController.searchBar.text != "" {
             movie = filteredMoviesArray[indexPath.row]
         } else {
             movie = moviesArray[indexPath.row]
         }
-        
 
-//        cell.vehicleType.text = estimate.vehicleName
-//        cell.vehicleTypeDescription.text = estimate.vehicleDescription
-//        cell.priceFormatted.text = estimate.priceFormatted
-//        Alamofire.request(estimate.vehicleIconUrl!).responseImage { response in
+        cell.textLabel?.text = movie.title
+//        Alamofire.request(movie.posterPath!).responseImage { response in
 //            if let image = response.result.value {
-//                cell.vehicleIcon.image = image
+//                cell.posterImage.image = image
 //            }
 //        }
         
