@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating  {
 
     //MARK: IBOutlets
     @IBOutlet var moviesTableView:UITableView!
@@ -16,9 +16,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var moviesArray = [String]()
     var filteredMoviesArray = [String]()
     
+    var searchOn:Bool!
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        
+        filteredMoviesArray = moviesArray.filter { movie in
+            return movie.name.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        self.moviesTableView.reloadData()
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = false
+        searchController.searchBar.placeholder = "Search by name..."
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.setValue("Cancel", forKey:"_cancelButtonText")
+        self.moviesTableView.tableHeaderView = searchController.searchBar
+
     }
 
     override func didReceiveMemoryWarning() {
