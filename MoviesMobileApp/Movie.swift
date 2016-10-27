@@ -9,18 +9,21 @@
 import Foundation
 
 struct Movie {
-    var movieId:String?
+    var movieId:Int?
     var originalTitle:String?
     var originalLanguage:String?
     var title:String?
     var posterPath:String?
+    var backdropPath:String?
+    var popularity:Float?
+    var voteAverage:Float?
     var releaseDate:String?
     var genres:[Int]?
     var overview:String?
     
     init(data:[String:Any]) {
         if let val = data["id"] {
-            movieId=val as? String
+            movieId=val as? Int
         }
         if data["original_title"] != nil {
             originalTitle=data["original_title"]! as? String
@@ -39,6 +42,15 @@ struct Movie {
         }
         if data["genres"] != nil {
             genres=data["genres"]! as? [Int]
+        }
+        if data["backdrop_path"] != nil {
+            backdropPath=data["backdrop_path"]! as? String
+        }
+        if data["popularity"] != nil {
+            popularity=data["popularity"]! as? Float
+        }
+        if data["vote_average"] != nil {
+            voteAverage=data["vote_average"]! as? Float
         }
         if data["overview"] != nil {
             overview=data["overview"]! as? String
