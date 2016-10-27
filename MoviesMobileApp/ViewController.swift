@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var filteredMoviesArray = [Movie]()
     var genresArray = [Genre]()
     var selectedMovie:Movie?
+    var nextPage:Int = 1
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -46,7 +47,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Upcoming movies"
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -56,7 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchController.searchBar.setValue("Cancel", forKey:"_cancelButtonText")
         self.moviesTableView.tableHeaderView = searchController.searchBar
         
-        self.getMovies(page: 1)
+        self.getMovies(page: self.nextPage)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK: Service Methods
     
     func getGenres(){
+        self.genresArray.removeAll()
         let service = UtilService()
         _ = service.getGenres()
             .subscribe(onNext: { n in
@@ -113,6 +115,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 , onCompleted: {
                     print("Completed")
                     self.moviesTableView.reloadData()
+                    self.nextPage += 1
                 }
                 , onDisposed: {
                     print("Disposed")
@@ -152,8 +155,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 genres = genres + " " + genre.name! + " "
             }
             cell.genre.text = genres
-
         }
+
         cell.releaseDate.text = movie.releaseDate
         if (movie.posterPath != nil) {
             Alamofire.request(UtilFacade.imageBaseUrl+movie.posterPath!).responseImage { response in
@@ -176,7 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             self.selectedMovie = moviesArray[indexPath.row]
         }
-        
+        searchController.isActive = false
         self.performSegue(withIdentifier: "showMovieDetail", sender: self)
     }
 

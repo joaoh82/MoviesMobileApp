@@ -24,7 +24,8 @@ class MovieDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = movie?.title
+        
         self.movieTitle.text = movie?.title
         if movie?.genres != nil {
             var movieGenre = [Genre]()
