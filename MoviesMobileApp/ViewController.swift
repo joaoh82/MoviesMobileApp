@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  MoviesMobileApp
 //
-//  Created by Avenue Code on 10/27/16.
+//  Created by João Henrique Machado Silva on 10/27/16.
 //  Copyright © 2016 ArcTouch. All rights reserved.
 //
 
@@ -13,8 +13,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK: IBOutlets
     @IBOutlet var moviesTableView:UITableView!
     
-    var moviesArray = [String]()
-    var filteredMoviesArray = [String]()
+    var moviesArray = [Movie]()
+    var filteredMoviesArray = [Movie]()
     
     var searchOn:Bool!
     let searchController = UISearchController(searchResultsController: nil)
@@ -22,15 +22,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
         filteredMoviesArray = moviesArray.filter { movie in
-            return movie.name.lowercaseString.containsString(searchText.lowercaseString)
+            return (movie.title?.lowercased().contains(searchText.lowercased()))!
         }
         self.moviesTableView.reloadData()
     }
-    
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+
+    func updateSearchResults(for searchController: UISearchController){
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +53,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: UItableView Delegate Methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredMoviesArray.count
+        }
         return moviesArray.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:MoviesTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MoviesFoldingCell", for: indexPath as IndexPath) as! MoviesTableViewCell
         
-//        let estimate:Estimate = Estimate.init(data: json!.object(at: indexPath.row) as! [String:Any])
+        let movie:Movie
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            movie = filteredMoviesArray[indexPath.row]
+        } else {
+            movie = moviesArray[indexPath.row]
+        }
+        
+
 //        cell.vehicleType.text = estimate.vehicleName
 //        cell.vehicleTypeDescription.text = estimate.vehicleDescription
 //        cell.priceFormatted.text = estimate.priceFormatted

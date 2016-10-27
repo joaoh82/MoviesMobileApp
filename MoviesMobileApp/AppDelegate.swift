@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MoviesMobileApp
 //
-//  Created by Avenue Code on 10/27/16.
+//  Created by João Henrique Machado Silva on 10/27/16.
 //  Copyright © 2016 ArcTouch. All rights reserved.
 //
 
@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
