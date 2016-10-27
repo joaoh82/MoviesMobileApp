@@ -13,7 +13,7 @@ import Alamofire
 
 class UtilService: NSObject {
 
-//     Goes to the API and returns 20 movies for every request. 20 is size of the page seted by the API.
+    // Goes to the API and returns 20 movies for every request. 20 is size of the page seted by the API.
     func getMovies(page:Int) -> Observable<AnyObject?> {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -75,6 +75,8 @@ class UtilService: NSObject {
         }
     }
     
+    
+    // Goes to the API and brings an updated list of all Genres
     func getGenres() -> Observable<AnyObject?> {
         let url = "\(UtilFacade.host+UtilFacade.genresEndPoint)?api_key=\(UtilFacade.token)&language=en-US"
         

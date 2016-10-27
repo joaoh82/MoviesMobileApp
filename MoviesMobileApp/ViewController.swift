@@ -18,12 +18,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK: IBOutlets
     @IBOutlet var moviesTableView:UITableView!
     
+    //MARK: Data
     var moviesArray = [Movie]()
     var filteredMoviesArray = [Movie]()
     var genresArray = [Genre]()
+    var selectedMovie:Movie?
     
-    var searchOn:Bool!
     let searchController = UISearchController(searchResultsController: nil)
+    
+    //MARK: UISearchController Methods
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
@@ -54,13 +57,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.moviesTableView.tableHeaderView = searchController.searchBar
         
         self.getMovies(page: 1)
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: Service Methods
     
     func getGenres(){
         let service = UtilService()
@@ -159,7 +163,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         
-        
         return cell
     }
     
@@ -167,8 +170,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.cellForRow(at: indexPath)
         
         cell?.setSelected(false, animated: true)
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            self.selectedMovie = filteredMoviesArray[indexPath.row]
+        } else {
+            self.selectedMovie = moviesArray[indexPath.row]
+        }
+        
+        self.performSegue(withIdentifier: "showMovieDetail", sender: self)
     }
 
+
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMovieDetail" {
+            if let movieDetailViewController = segue.destination as? MovieDetailViewController{
+                movieDetailViewController.movie = self.selectedMovie
+                movieDetailViewController.genresArray = self.genresArray
+            } else {
+                print("Data NOT Passed! destination vc is not set to firstVC")
+            }
+        } else { print("Id doesnt match with Storyboard segue Id") }
+
+     }
+ 
 
 }
 
