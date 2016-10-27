@@ -1,0 +1,17 @@
+#Code
+.DS_store
+*/build/*
+*.pbxuser
+!default.pbxuser
+xcuserdata
+profile
+DeriveData
+*.xccheckout
+
+#mergetool
+*.orig
+
+#cocoapod
+Podfile.lock
+*/Pods/
+Pods/
