@@ -40,8 +40,8 @@ struct Movie {
         if data["release_date"] != nil {
             releaseDate=data["release_date"]! as? String
         }
-        if data["genres"] != nil {
-            genres=data["genres"]! as? [Int]
+        if data["genre_ids"] != nil {
+            genres=data["genre_ids"]! as? [Int]
         }
         if data["backdrop_path"] != nil {
             backdropPath=data["backdrop_path"]! as? String

@@ -16,6 +16,19 @@ class UtilFacade: NSObject {
         }
     }
     
+    class var genresEndPoint: String{
+        get{
+            return "/3/genre/movie/list"
+        }
+    }
+    
+    class var imageBaseUrl: String{
+        get{
+            return "https://image.tmdb.org/t/p/w500/"
+        }
+    }
+    
+    
     class var host: String{
         get{
             return "https://api.themoviedb.org"

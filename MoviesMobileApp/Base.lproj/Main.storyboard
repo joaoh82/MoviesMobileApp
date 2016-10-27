@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,16 +19,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JH3-R8-Cvl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JH3-R8-Cvl">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoviesCell" id="lQB-7w-QSV" customClass="MoviesTableViewCell" customModule="MoviesMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoviesCell" rowHeight="100" id="lQB-7w-QSV" customClass="MoviesTableViewCell" customModule="MoviesMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lQB-7w-QSV" id="ugJ-fJ-otK">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8ff-fM-RdE">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="83" id="bXT-Zp-bJ8"/>
+                                                        <constraint firstAttribute="width" constant="83" id="rBx-3t-dm7"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yok-U5-xDX">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o97-8p-jeO">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="PU3-H5-EbA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre not specified" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5je-NF-RBl">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="5dY-CU-kAh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="o97-8p-jeO" firstAttribute="leading" secondItem="8ff-fM-RdE" secondAttribute="trailing" constant="8" id="3Bf-qc-vxE"/>
+                                                <constraint firstItem="o97-8p-jeO" firstAttribute="bottom" secondItem="ugJ-fJ-otK" secondAttribute="bottomMargin" id="85n-gq-VT1"/>
+                                                <constraint firstItem="Yok-U5-xDX" firstAttribute="top" secondItem="ugJ-fJ-otK" secondAttribute="topMargin" id="AqW-jf-T9b"/>
+                                                <constraint firstItem="Yok-U5-xDX" firstAttribute="leading" secondItem="8ff-fM-RdE" secondAttribute="trailing" constant="8" id="BLZ-1X-w8O"/>
+                                                <constraint firstItem="8ff-fM-RdE" firstAttribute="bottom" secondItem="ugJ-fJ-otK" secondAttribute="bottomMargin" id="EfX-kV-aZe"/>
+                                                <constraint firstItem="8ff-fM-RdE" firstAttribute="top" secondItem="ugJ-fJ-otK" secondAttribute="topMargin" id="bOD-WR-VMe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Yok-U5-xDX" secondAttribute="trailing" constant="8" id="fOA-ao-zUh"/>
+                                                <constraint firstItem="5je-NF-RBl" firstAttribute="leading" secondItem="8ff-fM-RdE" secondAttribute="trailing" constant="8" id="oB4-1G-dfa"/>
+                                                <constraint firstItem="5je-NF-RBl" firstAttribute="top" secondItem="Yok-U5-xDX" secondAttribute="bottom" constant="8" id="oY9-c3-ZEK"/>
+                                                <constraint firstItem="8ff-fM-RdE" firstAttribute="leading" secondItem="ugJ-fJ-otK" secondAttribute="leadingMargin" id="qlw-q0-4XL"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="genre" destination="5je-NF-RBl" id="hsi-RE-4S9"/>
+                                            <outlet property="posterImage" destination="8ff-fM-RdE" id="Faw-V0-Yt5"/>
+                                            <outlet property="releaseDate" destination="o97-8p-jeO" id="HFW-Op-S2z"/>
+                                            <outlet property="title" destination="Yok-U5-xDX" id="XVS-QQ-iwL"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

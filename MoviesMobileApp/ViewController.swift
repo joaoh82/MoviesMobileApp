@@ -9,6 +9,9 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Alamofire
+import AlamofireImage
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating  {
 
@@ -17,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var moviesArray = [Movie]()
     var filteredMoviesArray = [Movie]()
+    var genresArray = [Genre]()
     
     var searchOn:Bool!
     let searchController = UISearchController(searchResultsController: nil)
@@ -31,6 +35,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func updateSearchResults(for searchController: UISearchController){
         filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.getGenres()
     }
     
     override func viewDidLoad() {
@@ -52,6 +60,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getGenres(){
+        let service = UtilService()
+        _ = service.getGenres()
+            .subscribe(onNext: { n in
+                print("next")
+                if let dict = n as? [String: AnyObject] {
+                    if let twoDataArray = dict["genres"] as? Array<Dictionary<String, Any>>{
+                        for data in twoDataArray{
+                            let genre = Genre(data: data)
+                            self.genresArray.append(genre)
+                        }
+                    }
+                }
+                }
+                , onError: {error in
+                    print(error)
+                }
+                , onCompleted: {
+                    print("Completed")
+                    self.moviesTableView.reloadData()
+                }
+                , onDisposed: {
+                    print("Disposed")
+                }
+        )
     }
     
     func getMovies(page:Int){
@@ -99,13 +134,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             movie = moviesArray[indexPath.row]
         }
+        cell.title.text = movie.title
+        if movie.genres != nil {
+            var movieGenre = [Genre]()
+            for item in movie.genres! {
+                let filteredArray = genresArray.filter { genre in
+                    return (genre.genreId == item)
+                }
+                movieGenre.append(contentsOf: filteredArray)
+            }
+            var genres = ""
+            for genre in movieGenre {
+                genres = genres + " " + genre.name! + " "
+            }
+            cell.genre.text = genres
 
-        cell.textLabel?.text = movie.title
-//        Alamofire.request(movie.posterPath!).responseImage { response in
-//            if let image = response.result.value {
-//                cell.posterImage.image = image
-//            }
-//        }
+        }
+        cell.releaseDate.text = movie.releaseDate
+        if (movie.posterPath != nil) {
+            Alamofire.request(UtilFacade.imageBaseUrl+movie.posterPath!).responseImage { response in
+                if let image = response.result.value {
+                    cell.posterImage.image = image
+                }
+            }
+        }
+        
         
         return cell
     }
