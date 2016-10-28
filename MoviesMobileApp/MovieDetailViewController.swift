@@ -37,7 +37,7 @@ class MovieDetailViewController: UIViewController {
             }
             var genres = ""
             for genre in movieGenre {
-                genres = genres + " " + genre.name! + " "
+                genres = genres + genre.name! + " | "
             }
             self.genre.text = genres
             

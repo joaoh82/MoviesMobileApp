@@ -174,7 +174,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             var genres = ""
             for genre in movieGenre {
-                genres = genres + " " + genre.name! + " "
+                genres = genres + genre.name! + " | "
             }
             cell.genre.text = genres
         }
