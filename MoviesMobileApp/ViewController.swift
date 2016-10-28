@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     //MARK: IBOutlets
     @IBOutlet var moviesTableView:UITableView!
+    var refreshControl = UIRefreshControl()
     
     //MARK: Data
     var moviesArray = [Movie]()
@@ -49,6 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         self.title = "Upcoming movies"
         
+        //Set up SearchController
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = false
@@ -57,12 +59,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchController.searchBar.setValue("Cancel", forKey:"_cancelButtonText")
         self.moviesTableView.tableHeaderView = searchController.searchBar
         
+        //Set up the RefreshControl
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(self.refresh(sender:)), for: UIControlEvents.valueChanged)
+        self.moviesTableView?.addSubview(refreshControl)
+        
         self.getMovies(page: self.nextPage)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refresh(sender:AnyObject) {
+        if self.moviesArray.count < 51{
+            self.getMovies(page: self.nextPage)
+        }else{
+            if self.refreshControl.isRefreshing
+            {
+                self.refreshControl.endRefreshing()
+            }
+        }
     }
     
     //MARK: Service Methods
@@ -114,8 +132,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 , onCompleted: {
                     print("Completed")
-                    self.moviesTableView.reloadData()
+                    if self.refreshControl.isRefreshing
+                    {
+                        self.refreshControl.endRefreshing()
+                    }
                     self.nextPage += 1
+                    self.moviesTableView.reloadData()
                 }
                 , onDisposed: {
                     print("Disposed")
