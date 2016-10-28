@@ -10,7 +10,7 @@ Build instructions:
 
  - IDE: xCode8
 
- Third Party Libraries used:
+Third Party Libraries used:
 
  - Alamofire (https://github.com/Alamofire/Alamofire) - HTTP Networking for Swift
  - RxSwift and RxCocoa (https://github.com/ReactiveX/RxSwift) - Reactive Programming Framework for Swift. I prefer to deal with service in a Reactive aproach because it deal perfectly with asynchronous operations and event/data streams. 
