@@ -42,6 +42,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
     
+    //MARK: UIViewController Methods
+    
     override func viewWillAppear(_ animated: Bool) {
         self.getGenres()
     }
@@ -72,6 +74,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: Service Methods
+    
     func refresh(sender:AnyObject) {
         if self.moviesArray.count < 51{
             self.getMovies(page: self.nextPage)
@@ -82,8 +86,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-    
-    //MARK: Service Methods
     
     func getGenres(){
         self.genresArray.removeAll()
@@ -164,6 +166,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             movie = moviesArray[indexPath.row]
         }
         cell.title.text = movie.title
+        
         // Crossing the genres_ids from the Movie with the Genre List pulled from theAPI earlier
         if movie.genres != nil {
             var movieGenre = [Genre]()
@@ -185,6 +188,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
 
         cell.releaseDate.text = movie.releaseDate
+        // Using AlamofireImage to pull image asynchrony from the server
         if (movie.posterPath != nil) {
             Alamofire.request(UtilFacade.imageBaseUrl+movie.posterPath!).responseImage { response in
                 if let image = response.result.value {

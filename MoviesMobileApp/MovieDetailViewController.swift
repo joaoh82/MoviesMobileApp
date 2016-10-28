@@ -22,11 +22,13 @@ class MovieDetailViewController: UIViewController {
     var genresArray = [Genre]()
     var movie:Movie?
 
+    //MARK: UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = movie?.title
         
         self.movieTitle.text = movie?.title
+        // Crossing the genres_ids from the Movie with the Genre List pulled from theAPI earlier
         if movie?.genres != nil {
             var movieGenre = [Genre]()
             for item in (movie?.genres!)! {
@@ -47,6 +49,8 @@ class MovieDetailViewController: UIViewController {
             
         }
         self.releaseDate.text = movie?.releaseDate
+        
+        // Using AlamofireImage to pull image asynchrony from the server
         if (movie?.posterPath != nil) {
             Alamofire.request(UtilFacade.imageBaseUrl+(movie?.posterPath!)!).responseImage { response in
                 if let image = response.result.value {
