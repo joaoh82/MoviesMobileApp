@@ -35,11 +35,15 @@ class MovieDetailViewController: UIViewController {
                 }
                 movieGenre.append(contentsOf: filteredArray)
             }
-            var genres = ""
-            for genre in movieGenre {
-                genres = genres + genre.name! + " | "
+            if movieGenre.count > 1 {
+                var genres = ""
+                for genre in movieGenre {
+                    genres = genres + genre.name! + " | "
+                }
+                self.genre.text = String(genres.characters.dropLast(3))
+            }else{
+                self.genre.text = "Genre not specified"
             }
-            self.genre.text = genres
             
         }
         self.releaseDate.text = movie?.releaseDate

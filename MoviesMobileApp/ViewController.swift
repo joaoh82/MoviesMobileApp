@@ -164,6 +164,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             movie = moviesArray[indexPath.row]
         }
         cell.title.text = movie.title
+        // Crossing the genres_ids from the Movie with the Genre List pulled from theAPI earlier
         if movie.genres != nil {
             var movieGenre = [Genre]()
             for item in movie.genres! {
@@ -172,11 +173,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 movieGenre.append(contentsOf: filteredArray)
             }
-            var genres = ""
-            for genre in movieGenre {
-                genres = genres + genre.name! + " | "
+            if movieGenre.count > 1 {
+                var genres = ""
+                for genre in movieGenre {
+                    genres = genres + genre.name! + " | "
+                }
+                cell.genre.text = String(genres.characters.dropLast(3))
+            }else{
+                cell.genre.text = "Genre not specified."
             }
-            cell.genre.text = genres
         }
 
         cell.releaseDate.text = movie.releaseDate
