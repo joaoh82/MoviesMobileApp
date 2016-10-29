@@ -29,14 +29,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK: UISearchController Methods
     
+    //Filter the Movie array and returns another array with the filter results
     func filterContentForSearchText(searchText: String, scope: String = "All") {
-        
         filteredMoviesArray = moviesArray.filter { movie in
             return (movie.title?.lowercased().contains(searchText.lowercased()))!
         }
         self.moviesTableView.reloadData()
     }
 
+    //Called when the search bar becomes the first responder or when the user makes changes inside the search bar.
     func updateSearchResults(for searchController: UISearchController){
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
@@ -47,6 +48,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.getGenres()
     }
     
+    //Called before the view controller's view is about to be added to a view hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Upcoming movies"
@@ -75,6 +77,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK: Service Methods
     
+    //Called every time the UITableView is pulled down by the user
     func refresh(sender:AnyObject) {
         if self.moviesArray.count < 51{
             self.getMovies(page: self.nextPage)
@@ -86,6 +89,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    //Gets the list of genres
     func getGenres(){
         self.genresArray.removeAll()
         let service = UtilService()
@@ -114,6 +118,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         )
     }
     
+    //Gets the next page of 20 movies
     func getMovies(page:Int){
         let service = UtilService()
         _ = service.getMovies(page: 1)
@@ -211,8 +216,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.performSegue(withIdentifier: "showMovieDetail", sender: self)
     }
 
-
-    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -227,7 +230,5 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else { print("Id doesnt match with Storyboard segue Id") }
 
      }
- 
-
 }
 

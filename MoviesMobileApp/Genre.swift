@@ -12,6 +12,7 @@ struct Genre {
     var genreId:Int?
     var name:String?
     
+    //Instantiates the object with the Dictionary returned from the service
     init(data:[String:Any]) {
         if let val = data[Constants.Data.Genre().id as String] {
             genreId=val as? Int

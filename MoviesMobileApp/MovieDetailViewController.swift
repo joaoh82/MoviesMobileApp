@@ -19,6 +19,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var posterImage: UIImageView!
     
+    //MARK: Data
     var genresArray = [Genre]()
     var movie:Movie?
 

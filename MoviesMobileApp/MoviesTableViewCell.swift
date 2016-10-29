@@ -5,6 +5,7 @@
 //  Created by João Henrique Machado Silva on 10/27/16.
 //  Copyright © 2016 ArcTouch. All rights reserved.
 //
+// Custom UITableViewCell for the Movie
 
 import UIKit
 

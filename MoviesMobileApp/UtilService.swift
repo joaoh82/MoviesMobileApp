@@ -20,6 +20,7 @@ class UtilService: NSObject {
         let currentDate = NSDate()
         let url = "\(Constants.Service().base_url as String)\(Constants.Service().discoverEndPoint)?api_key=\(Constants.Service().token)&language=\(Constants.Service().language)&sort_by=\(Constants.Service().sort_by)&page=\(page)&primary_release_date.gte=\(dateFormatter.string(from: currentDate as Date))"
         
+        //Creates and returns an observeble object for it can be subscribed elsewhere
         return Observable.create { observer in
             var request = URLRequest(url: NSURL(string: url) as! URL)
             request.httpMethod = "GET"
@@ -49,6 +50,7 @@ class UtilService: NSObject {
     func getGenres() -> Observable<AnyObject?> {
         let url = "\(Constants.Service().base_url)\(Constants.Service().genreEndPoint)?api_key=\(Constants.Service().token)&language=en-US"
         
+        //Creates and returns an observeble object for it can be subscribed elsewhere
         return Observable.create { observer in
             var request = URLRequest(url: NSURL(string: url) as! URL)
             request.httpMethod = "GET"

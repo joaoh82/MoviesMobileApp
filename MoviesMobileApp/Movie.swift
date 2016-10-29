@@ -21,6 +21,7 @@ struct Movie {
     var genres:[Int]?
     var overview:String?
     
+    //Instantiates the object with the Dictionary returned from the service
     init(data:[String:Any]) {
         if let val = data[Constants.Data.Movie().id as String] {
             movieId=val as? Int
