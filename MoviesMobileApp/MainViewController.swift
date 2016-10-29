@@ -12,8 +12,7 @@ import RxSwift
 import Alamofire
 import AlamofireImage
 
-
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating  {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating  {
 
     //MARK: IBOutlets
     @IBOutlet var moviesTableView:UITableView!
@@ -190,11 +189,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.releaseDate.text = movie.releaseDate
         // Using AlamofireImage to pull image asynchrony from the server
         if (movie.posterPath != nil) {
-            Alamofire.request(UtilFacade.imageBaseUrl+movie.posterPath!).responseImage { response in
-                if let image = response.result.value {
-                    cell.posterImage.image = image
-                }
-            }
+            let url = URL(string: "\(Constants.Service().imageBaseUrl)\(movie.posterPath!)")!
+            let placeholderImage = UIImage(named: "placeholder")!
+            cell.posterImage.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }
         
         return cell

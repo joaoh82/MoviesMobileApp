@@ -51,22 +51,18 @@ class MovieDetailViewController: UIViewController {
         self.releaseDate.text = movie?.releaseDate
         
         // Using AlamofireImage to pull image asynchrony from the server
-        if (movie?.posterPath != nil) {
-            Alamofire.request(UtilFacade.imageBaseUrl+(movie?.posterPath!)!).responseImage { response in
-                if let image = response.result.value {
-                    self.posterImage.image = image
-                }
-            }
+        if let path = movie?.posterPath {
+            let url = URL(string: "\(Constants.Service().imageBaseUrl)\(path)")!
+            let placeholderImage = UIImage(named: "placeholder")!
+            self.posterImage.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }
         self.overview.text = movie?.overview
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

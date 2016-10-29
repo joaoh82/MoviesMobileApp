@@ -13,11 +13,11 @@ struct Genre {
     var name:String?
     
     init(data:[String:Any]) {
-        if let val = data["id"] {
+        if let val = data[Constants.Data.Genre().id as String] {
             genreId=val as? Int
         }
-        if data["name"] != nil {
-            name=data["name"]! as? String
+        if data[Constants.Data.Genre().name as String] != nil {
+            name=data[Constants.Data.Genre().name as String]! as? String
         }
     }
 }

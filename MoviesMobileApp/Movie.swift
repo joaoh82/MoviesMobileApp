@@ -22,38 +22,38 @@ struct Movie {
     var overview:String?
     
     init(data:[String:Any]) {
-        if let val = data["id"] {
+        if let val = data[Constants.Data.Movie().id as String] {
             movieId=val as? Int
         }
-        if data["original_title"] != nil {
-            originalTitle=data["original_title"]! as? String
+        if data[Constants.Data.Movie().original_title as String] != nil {
+            originalTitle=data[Constants.Data.Movie().original_title as String]! as? String
         }
-        if data["original_language"] != nil {
-            originalLanguage=data["original_language"]! as? String
+        if data[Constants.Data.Movie().original_language as String] != nil {
+            originalLanguage=data[Constants.Data.Movie().original_language as String]! as? String
         }
-        if data["title"] != nil {
-            title=data["title"]! as? String
+        if data[Constants.Data.Movie().title as String] != nil {
+            title=data[Constants.Data.Movie().title as String]! as? String
         }
-        if data["poster_path"] != nil {
-            posterPath=data["poster_path"]! as? String
+        if data[Constants.Data.Movie().poster_path as String] != nil {
+            posterPath=data[Constants.Data.Movie().poster_path as String]! as? String
         }
-        if data["release_date"] != nil {
-            releaseDate=data["release_date"]! as? String
+        if data[Constants.Data.Movie().release_date as String] != nil {
+            releaseDate=data[Constants.Data.Movie().release_date as String]! as? String
         }
-        if data["genre_ids"] != nil {
-            genres=data["genre_ids"]! as? [Int]
+        if data[Constants.Data.Movie().genre_ids as String] != nil {
+            genres=data[Constants.Data.Movie().genre_ids as String]! as? [Int]
         }
-        if data["backdrop_path"] != nil {
-            backdropPath=data["backdrop_path"]! as? String
+        if data[Constants.Data.Movie().backdrop_path as String] != nil {
+            backdropPath=data[Constants.Data.Movie().backdrop_path as String]! as? String
         }
-        if data["popularity"] != nil {
-            popularity=data["popularity"]! as? Float
+        if data[Constants.Data.Movie().popularity as String] != nil {
+            popularity=data[Constants.Data.Movie().popularity as String]! as? Float
         }
-        if data["vote_average"] != nil {
-            voteAverage=data["vote_average"]! as? Float
+        if data[Constants.Data.Movie().vote_average as String] != nil {
+            voteAverage=data[Constants.Data.Movie().vote_average as String]! as? Float
         }
-        if data["overview"] != nil {
-            overview=data["overview"]! as? String
+        if data[Constants.Data.Movie().overview as String] != nil {
+            overview=data[Constants.Data.Movie().overview as String]! as? String
         }
     }
 }

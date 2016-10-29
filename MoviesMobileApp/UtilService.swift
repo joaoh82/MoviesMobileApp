@@ -18,7 +18,7 @@ class UtilService: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let currentDate = NSDate()
-        let url = "\(UtilFacade.host+UtilFacade.discoverEndPoint)?api_key=\(UtilFacade.token)&language=en-US&sort_by=primary_release_date.asc&include_video=true&page=\(page)&primary_release_date.gte=\(dateFormatter.string(from: currentDate as Date))"
+        let url = "\(Constants.Service().base_url as String)\(Constants.Service().discoverEndPoint)?api_key=\(Constants.Service().token)&language=en-US&sort_by=primary_release_date.asc&include_video=true&page=\(page)&primary_release_date.gte=\(dateFormatter.string(from: currentDate as Date))"
         
         return Observable.create { observer in
             var request = URLRequest(url: NSURL(string: url) as! URL)
@@ -78,7 +78,7 @@ class UtilService: NSObject {
     
     // Goes to the API and brings an updated list of all Genres
     func getGenres() -> Observable<AnyObject?> {
-        let url = "\(UtilFacade.host+UtilFacade.genresEndPoint)?api_key=\(UtilFacade.token)&language=en-US"
+        let url = "\(Constants.Service().base_url)\(Constants.Service().genreEndPoint)?api_key=\(Constants.Service().token)&language=en-US"
         
         return Observable.create { observer in
             var request = URLRequest(url: NSURL(string: url) as! URL)
