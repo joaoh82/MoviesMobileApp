@@ -38,7 +38,6 @@ class MoviesMobileAppTests: XCTestCase {
                     }
                 }
                 , onError: {error in
-                    print(error)
                 }
                 , onCompleted: {
                     XCTAssertGreaterThanOrEqual(resultArray.count, 1)
@@ -63,7 +62,6 @@ class MoviesMobileAppTests: XCTestCase {
                     }
                 }
                 , onError: {error in
-                    print(error)
                 }
                 , onCompleted: {
                     XCTAssertGreaterThanOrEqual(resultArray.count, 20)
@@ -75,15 +73,28 @@ class MoviesMobileAppTests: XCTestCase {
         disposeBag = nil
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    //Test the perfomance of hte getMovies end point
+    func testGetMoviesPerfomance() {
+        var resultArray = [Movie]()
         self.measure {
             // Put the code you want to measure the time of here.
+            let pageNum = arc4random_uniform(9)+1
+            
+            _ = self.service.getMovies(page: Int(pageNum))
+                .subscribe(onNext: { n in
+                    if let dict = n as? [String: AnyObject] {
+                        if let twoDataArray = dict["results"] as? Array<Dictionary<String, Any>>{
+                            for data in twoDataArray{
+                                let movie = Movie(data: data)
+                                resultArray.append(movie)
+                            }
+                        }
+                    }
+                    }
+                    , onError: {error in
+                    }
+                    , onCompleted: {
+                    }, onDisposed: nil)
         }
     }
     
