@@ -10,14 +10,18 @@ import Foundation
 
 
 struct Constants {
+    //Constants related to the service URLs and End Points
     struct Service {
         let base_url : NSString = "https://api.themoviedb.org"
         let token : NSString = "1f54bd990f1cdfb230adb312546d765d"
         let discoverEndPoint : NSString = "/3/discover/movie"
         let genreEndPoint : NSString = "/3/genre/movie/list"
         let imageBaseUrl : NSString = "https://image.tmdb.org/t/p/w500"
+        let sort_by : NSString = "primary_release_date.asc"
+        let language : NSString = "en-US"
     }
     
+    //Constants related to the name of the keys inside the JSON back from the API
     struct Data {
         struct Movie {
             let id : NSString = "id"
