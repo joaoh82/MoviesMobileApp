@@ -538,7 +538,7 @@
 				DEVELOPMENT_TEAM = XLT72J2826;
 				INFOPLIST_FILE = MoviesMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arctouch.MoviesMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchsurgery.MoviesMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -552,7 +552,7 @@
 				DEVELOPMENT_TEAM = XLT72J2826;
 				INFOPLIST_FILE = MoviesMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arctouch.MoviesMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchsurgery.MoviesMobileApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -567,7 +567,7 @@
 				DEVELOPMENT_TEAM = XLT72J2826;
 				INFOPLIST_FILE = MoviesMobileAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arctouch.MoviesMobileAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchsurgery.MoviesMobileAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesMobileApp.app/MoviesMobileApp";
@@ -583,7 +583,7 @@
 				DEVELOPMENT_TEAM = XLT72J2826;
 				INFOPLIST_FILE = MoviesMobileAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arctouch.MoviesMobileAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchsurgery.MoviesMobileAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesMobileApp.app/MoviesMobileApp";
